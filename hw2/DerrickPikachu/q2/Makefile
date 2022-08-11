@@ -1,5 +1,6 @@
 CXX = g++
-PYBIND = $(shell python3 -m pybind11 --includes)
+# PYBIND = $(shell python3 -m pybind11 --includes)
+PYBIND = -I /usr/include/python3.8
 PYBIND_SUFFIX = $(shell python3-config --extension-suffix)
 
 .PHONY: default
@@ -16,7 +17,7 @@ angle_bind: angle_bind.o angle.o
 
 .PHONY: clean
 clean:
-	rm -f *.o *.so test
+	rm -f *.o *.so .pytest_cache __pycache__
 
 .PHONY: test
 test:
