@@ -21,4 +21,4 @@ clean:
 
 .PHONY: test
 test:
-	pytest
+	python3 -m pytest -v
