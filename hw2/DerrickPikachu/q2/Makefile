@@ -12,8 +12,12 @@ angle_bind.o: pybind_angle.cpp angle.h
 	$(CXX) -c pybind_angle.cpp -fPIC $(PYBIND) -o angle_bind.o
 
 angle_bind: angle_bind.o angle.o
-	$(CXX) -O3 -Wall -shared -std=c++11 angle_bind.o angle.o -o angle$(PYBIND_SUFFIX)
+	$(CXX) -O3 -Wall -shared -std=c++11 angle_bind.o angle.o -o _vector$(PYBIND_SUFFIX)
 
 .PHONY: clean
 clean:
 	rm -f *.o *.so test
+
+.PHONY: test
+test:
+	pytest
