@@ -17,7 +17,7 @@ angle_bind: angle_bind.o angle.o
 
 .PHONY: clean
 clean:
-	rm -f *.o *.so .pytest_cache __pycache__
+	rm -rf *.o *.so .pytest_cache __pycache__
 
 .PHONY: test
 test:
