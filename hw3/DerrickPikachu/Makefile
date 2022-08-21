@@ -19,4 +19,4 @@ matrix: matrix.o matrix_bind.o
 
 .PHONY: clean
 clean:
-	rm -rf *.o *.so
+	rm -rf *.o *.so __pycache__ .pytest_cache

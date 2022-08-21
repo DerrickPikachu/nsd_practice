@@ -12,6 +12,7 @@ PYBIND11_MODULE(_matrix, m) {
 
     m.def("multiply_naive", &matrix::multiply_naive);
     m.def("multiply_mkl", &matrix::multiply_mkl);
+    m.def("multiply_tile", &matrix::multiply_tile);
 
     py::class_<Matrix>(m, "Matrix")
         .def(py::init<>())

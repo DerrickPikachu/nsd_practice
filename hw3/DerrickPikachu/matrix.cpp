@@ -51,6 +51,30 @@ Matrix multiply_mkl(const Matrix & m1, const Matrix & m2)
     return result;
 }
 
+Matrix multiply_tile(const Matrix & m1, const Matrix & m2, int tsize)
+{
+    Matrix res(m1.getNrow(), m2.getNcol());
+    for (int i = 0; i < m1.getNrow(); i += tsize) {
+        for (int j = 0; j < m2.getNcol(); j += tsize) {
+            for (int k = 0; k < m1.getNcol(); k += tsize) {
+                multiply_block(res, m1, m2, i, j, k, tsize);
+            }
+        }
+    }
+    return res;
+}
+
+void multiply_block(Matrix & res, const Matrix & m1, const Matrix & m2, int row, int col, int multiply_iter, int tsize)
+{
+    for (int i = row; i < std::min(m1.getNrow(), row + tsize); i++) {
+        for (int k = multiply_iter; k < std::min(m1.getNcol(), multiply_iter + tsize); k++) {
+            for (int j = col; j < std::min(m2.getNcol(), col + tsize); j++) {
+                res(i, j) += m1(i, k) * m2(k, j);
+            }
+        }
+    }
+}
+
 Matrix::Matrix()
 {
     nrow = ncol = 0;

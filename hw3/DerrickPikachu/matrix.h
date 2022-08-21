@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <mkl.h>
 
 namespace matrix
 {
@@ -28,5 +27,7 @@ private:
 
 Matrix multiply_naive(const Matrix & m1, const Matrix & m2);
 Matrix multiply_mkl(const Matrix & m1, const Matrix & m2);
+Matrix multiply_tile(const Matrix & m1, const Matrix & m2, int tsize);
+void multiply_block(Matrix & res, const Matrix & m1, const Matrix & m2, int row, int col, int multiply_iter, int tsize);
 
 }
