@@ -103,9 +103,4 @@ bool Matrix::operator!= (const Matrix & other) const
     return !((*this) == other);
 }
 
-void Matrix::test()
-{
-    std::cerr << "test" << std::endl;
-}
-
 }

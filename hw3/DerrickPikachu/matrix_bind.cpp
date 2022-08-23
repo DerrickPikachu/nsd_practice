@@ -19,7 +19,6 @@ PYBIND11_MODULE(_matrix, m) {
         .def(py::init<size_t, size_t>())
         .def_property_readonly("nrow", &Matrix::getNrow)
         .def_property_readonly("ncol", &Matrix::getNcol)
-        .def("test", &Matrix::test)
         .def("__eq__", [](const Matrix & lmatrix, const Matrix & rmatrix) {
             return lmatrix == rmatrix;
         })

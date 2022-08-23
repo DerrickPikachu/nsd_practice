@@ -8,7 +8,6 @@ class Matrix {
 public:
     Matrix();
     Matrix(int rsize, int csize);
-    void test();
 
     const int & getNrow() const { return nrow; }
     const int & getNcol() const { return ncol; }

@@ -20,3 +20,7 @@ matrix: matrix.o matrix_bind.o
 .PHONY: clean
 clean:
 	rm -rf *.o *.so __pycache__ .pytest_cache
+
+.PHONY: test
+test:
+	python3 -m pytest . -v
