@@ -22,5 +22,5 @@ clean:
 	rm -rf *.o *.so __pycache__ .pytest_cache
 
 .PHONY: test
-test:
+test: matrix
 	python3 -m pytest . -v
