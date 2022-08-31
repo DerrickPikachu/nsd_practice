@@ -13,6 +13,9 @@ PYBIND11_MODULE(_matrix, m) {
     m.def("multiply_naive", &matrix::multiply_naive);
     m.def("multiply_mkl", &matrix::multiply_mkl);
     m.def("multiply_tile", &matrix::multiply_tile);
+    m.def("bytes", &matrix::bytes);
+    m.def("allocated", &matrix::allocated);
+    m.def("deallocated", &matrix::deallocated);
 
     py::class_<Matrix>(m, "Matrix")
         .def(py::init<>())

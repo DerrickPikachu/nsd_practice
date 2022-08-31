@@ -6,6 +6,28 @@
 namespace matrix
 {
 
+template <class T> std::atomic_size_t MatrixAllocatorCounter<T>::allocate_bytes = {0};
+template <class T> std::atomic_size_t MatrixAllocatorCounter<T>::deallocate_bytes = {0};
+
+template <class T> T* MatrixAllocatorCounter<T>::allocate(size_t num_element)
+{
+    int bytes = num_element * sizeof(T);
+    T* ptr = static_cast<T*>(malloc(bytes));
+    allocate_bytes += bytes;
+    return ptr;
+}
+
+template <class T> void MatrixAllocatorCounter<T>::deallocate(T* ptr, size_t num_element) noexcept
+{
+    std::free(ptr);
+    int bytes = num_element * sizeof(T);
+    deallocate_bytes += bytes;
+}
+
+int bytes() { return MatrixAllocatorCounter<double>::allocate_bytes - MatrixAllocatorCounter<double>::deallocate_bytes; }
+int allocated() { return MatrixAllocatorCounter<double>::allocate_bytes; }
+int deallocated() { return MatrixAllocatorCounter<double>::deallocate_bytes; }
+
 Matrix multiply_naive(const Matrix & m1, const Matrix & m2)
 {
     if (m1.getNcol() != m2.getNrow()) { 
@@ -75,11 +97,18 @@ void multiply_block(Matrix & res, const Matrix & m1, const Matrix & m2, int row,
     }
 }
 
+// Matrix::Matrix() : elements(MatrixAllocatorCounter<double>())
 Matrix::Matrix()
 {
     nrow = ncol = 0;
 }
 
+Matrix::~Matrix()
+{
+    std::cout << "test" << std::endl;
+}
+
+// Matrix::Matrix(int rsize, int csize) : elements(MatrixAllocatorCounter<double>())
 Matrix::Matrix(int rsize, int csize)
 {
     nrow = rsize;
