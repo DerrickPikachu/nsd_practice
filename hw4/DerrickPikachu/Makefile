@@ -17,9 +17,16 @@ matrix_bind.o: matrix_bind.cpp
 matrix: matrix.o matrix_bind.o
 	$(CXX) $(CXX_FLAG) -shared matrix_bind.o matrix.o $(MKL) $(PYBIND) -o _matrix$(PYBIND_SUFFIX)
 
+main.o: main.cpp
+	$(CXX) $(CXX_FLAG) -c main.cpp -fPIC -o main.o
+
+.PHONY: cpp_test
+cpp_test: matrix.o main.o
+	$(CXX) $(CXX_FLAG) main.o matrix.o $(MKL) -o test
+
 .PHONY: clean
 clean:
-	rm -rf *.o *.so __pycache__ .pytest_cache
+	rm -rf *.o *.so __pycache__ .pytest_cache test
 
 .PHONY: test
 test: matrix

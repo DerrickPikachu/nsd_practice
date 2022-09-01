@@ -34,5 +34,6 @@ PYBIND11_MODULE(_matrix, m) {
         .def("__setitem__", [](Matrix & matrix, py::tuple pos, float value) {
             matrix(pos[0].cast<int>(), pos[1].cast<int>()) = value;
         });
+        // .def("test", &Matrix::test);
     
 }
