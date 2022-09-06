@@ -2,9 +2,6 @@
 #include <vector>
 #include <atomic>
 
-namespace matrix
-{
-
 template <class T>
 class MatrixAllocatorCounter {
 public:
@@ -35,18 +32,18 @@ public:
     Matrix();
     Matrix(int rsize, int csize);
 
-    const int & getNrow() const { return nrow; }
-    const int & getNcol() const { return ncol; }
-    double operator() (size_t row, size_t col) const { return elements[row * ncol + col]; }
-    double & operator() (size_t row, size_t col) { return elements[row * ncol + col]; }
+    const int & nrow() const { return nrow_; }
+    const int & ncol() const { return ncol_; }
+    double operator() (size_t row, size_t col) const { return elements[row * ncol_ + col]; }
+    double & operator() (size_t row, size_t col) { return elements[row * ncol_ + col]; }
     bool operator== (const Matrix & other) const;
     bool operator!= (const Matrix & other) const;
     const double * getBuffer() const { return elements.data(); }
     double * getBuffer() { return elements.data(); }
 
 private:
-    int nrow;
-    int ncol;
+    int nrow_;
+    int ncol_;
     std::vector<double, MatrixAllocatorCounter<double>> elements;
 };
 
@@ -57,5 +54,3 @@ void multiply_block(Matrix & res, const Matrix & m1, const Matrix & m2, int row,
 int bytes();
 int allocated();
 int deallocated();
-
-}
